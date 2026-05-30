@@ -1,13 +1,14 @@
-const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+const mongoose = require("mongoose"); // ✅ ADD THIS
 
-  console.log("LOGIN:", email, password);
+const studentSchema = new mongoose.Schema({
+  name: String,
+  course: String,
+  contact: String,
+  education: String,
+  status: {
+    type: String,
+    default: "pending",
+  },
+});
 
-  if (email === "admin@gmail.com" && password === "123456") {
-    return res.json({ message: "Login success" });
-  }
-
-  res.status(401).json({ message: "Invalid credentials" });
-};
-
-module.exports = { loginUser };
+module.exports = mongoose.model("Student", studentSchema);
